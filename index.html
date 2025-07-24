@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stephen Kabage Kamau - Footballer Profile</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5; /* Light gray background */
+        }
+        .sidebar {
+            background-color: #1a237e; /* Dark blue */
+        }
+        .main-content {
+            background-color: #ffffff; /* White */
+            /* Arsenal Crest Background */
+            background-image: url('https://upload.wikimedia.org/wikipedia/en/thumb/5/53/Arsenal_FC.svg/1200px-Arsenal_FC.svg.png'); /* Arsenal crest URL */
+            background-size: 120%; /* Make it very big */
+            background-position: center center; /* Center the image */
+            background-repeat: no-repeat; /* Don't repeat the image */
+            position: relative; /* Needed for pseudo-element overlay */
+            overflow: hidden; /* Ensure image doesn't spill out */
+        }
+        .main-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.85); /* White overlay with opacity */
+            z-index: 1; /* Place overlay above background image but below content */
+        }
+        .main-content > *:not(.modal-overlay) {
+            position: relative;
+            z-index: 2; /* Ensure content is above the overlay */
+        }
+        .stat-box {
+            border-radius: 0.75rem; /* Rounded corners */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out;
+        }
+        .stat-box:hover {
+            transform: translateY(-3px);
+        }
+        .red-bg {
+            background-color: #ef4444; /* Red */
+        }
+        .blue-bg {
+            background-color: #3b82f6; /* Blue */
+        }
+        .yellow-bg {
+            background-color: #facc15; /* Yellow */
+        }
+        .gold-bg {
+            background-color: #fbbf24; /* Gold/Amber */
+        }
+        /* Modal specific styles */
+        .modal-overlay {
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
+            z-index: 100; /* Ensure modal is on top of everything */
+        }
+        .modal-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            transform: scale(0.9);
+            transition: transform 0.3s ease-out;
+        }
+        .modal-overlay.open .modal-content {
+            transform: scale(1);
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+    <div class="flex flex-col md:flex-row w-full max-w-6xl rounded-xl overflow-hidden shadow-lg">
+        <!-- Left Sidebar -->
+        <div class="sidebar w-full md:w-1/4 p-6 flex flex-col items-center justify-center text-white text-center">
+            <p class="text-xl mb-2 opacity-80">Africa's greatest talent</p>
+            <div class="bg-yellow-400 text-blue-900 font-bold text-4xl p-8 rounded-full mb-6">SKK</div>
+            <h1 class="text-3xl font-bold mb-2">Stephen Kabage Kamau</h1>
+            <p class="text-xl mb-1">Kenyan Footballer</p>
+            <p class="text-lg opacity-80">Arsenal Career</p>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content flex-1 p-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Career Overview</h2>
+
+            <!-- Career Span & Arsenal Statistics -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div class="bg-gray-100 p-4 rounded-lg shadow-sm">
+                    <h3 class="text-lg font-semibold text-gray-700 mb-2">Career Span</h3>
+                    <p class="text-gray-600"><strong>Arsenal Academy Player</strong></p>
+                    <p class="text-gray-600">8 Seasons for the club</p>
+                </div>
+                <div class="bg-gray-100 p-4 rounded-lg shadow-sm">
+                    <h3 class="text-lg font-semibold text-gray-700 mb-2">Arsenal Statistics</h3>
+                    <p class="text-gray-600">Games Played: 365</p>
+                    <p class="text-gray-600 text-sm italic underline font-bold">8 seasons</p>
+                </div>
+            </div>
+
+            <!-- Stats Boxes -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div id="goals-box" class="stat-box red-bg text-white p-4 flex flex-col items-center justify-center">
+                    <h3 class="text-lg font-semibold">Goals</h3>
+                    <p class="text-4xl font-bold">228</p>
+                    <p class="text-sm opacity-90 mt-1">Click for details</p>
+                </div>
+                <div id="assists-box" class="stat-box blue-bg text-white p-4 flex flex-col items-center justify-center">
+                    <h3 class="text-lg font-semibold">Assists</h3>
+                    <p class="text-4xl font-bold">278</p>
+                    <p class="text-sm opacity-90 mt-1">Click for details</p>
+                </div>
+                <div id="trophies-box" class="stat-box yellow-bg text-blue-900 p-4 flex flex-col items-center justify-center">
+                    <h3 class="text-lg font-semibold">Trophies</h3>
+                    <p class="text-4xl font-bold">23</p>
+                    <p class="text-sm opacity-90 mt-1">Click for details</p>
+                </div>
+                <div id="ballondor-box" class="stat-box gold-bg text-blue-900 p-4 flex flex-col items-center justify-center">
+                    <h3 class="text-lg font-semibold">Ballons d'Or</h3>
+                    <p class="text-4xl font-bold">3</p>
+                    <i class="fas fa-trophy text-3xl mt-2"></i> <!-- Trophy icon -->
+                    <p class="text-sm opacity-90 mt-1">Click for details</p>
+                </div>
+            </div>
+
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                Kenyan National Team
+                <img src="https://upload.wikimedia.org/wikipedia/commons/4/49/Flag_of_Kenya.svg" alt="Kenyan Flag" class="ml-3 h-6 w-auto rounded-sm shadow-md">
+            </h2>
+
+            <!-- Kenyan National Team Statistics & Major Honors -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div id="national-stats-box" class="bg-gray-100 p-4 rounded-lg shadow-sm cursor-pointer">
+                    <h3 class="text-lg font-semibold text-gray-700 mb-2">Statistics</h3>
+                    <p class="text-gray-600">Games Played: 60</p>
+                    <p class="text-gray-600">Goals Scored: 41</p>
+                    <p class="text-gray-600">Assists Made: 59</p>
+                    <p class="text-gray-600 mt-2 text-sm opacity-80">Click for details</p>
+                </div>
+                <div id="national-honors-box" class="bg-gray-100 p-4 rounded-lg shadow-sm cursor-pointer">
+                    <h3 class="text-lg font-semibold text-gray-700 mb-2">Major Honors</h3>
+                    <p class="text-gray-600">AFCON Titles: 3</p>
+                    <p class="text-gray-600">Olympics: Gold Medal</p>
+                    <p class="text-gray-600 mt-2 text-sm opacity-80">Click for details</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Overlay (Pop-out) -->
+    <div id="modal-overlay" class="fixed inset-0 z-50 modal-overlay">
+        <!-- Modal Content -->
+        <div id="modal-content" class="bg-white p-6 rounded-lg shadow-xl w-11/12 md:w-2/3 lg:w-2/5 relative">
+            <button id="modal-close-btn" class="absolute top-3 right-3 text-gray-500 hover:text-gray-800 text-2xl font-bold focus:outline-none">&times;</button>
+            <div id="modal-body" class="text-gray-700">
+                <!-- Content will be injected here dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get references to the stat boxes
+        const goalsBox = document.getElementById('goals-box');
+        const assistsBox = document.getElementById('assists-box');
+        const trophiesBox = document.getElementById('trophies-box');
+        const ballondorBox = document.getElementById('ballondor-box');
+        const nationalStatsBox = document.getElementById('national-stats-box');
+        const nationalHonorsBox = document.getElementById('national-honors-box');
+
+        // Get references to the modal elements
+        const modalOverlay = document.getElementById('modal-overlay');
+        const modalContent = document.getElementById('modal-content');
+        const modalCloseBtn = document.getElementById('modal-close-btn');
+        const modalBody = document.getElementById('modal-body');
+
+        // Define content for each pop-out
+        const detailsContent = {
+            goals: `
+                <h4 class="text-lg font-semibold mb-2">Goals Breakdown:</h4>
+                <ul class="list-disc list-inside pl-4">
+                    <li>2 European Golden Boots</li>
+                    <li>3 Premier League Golden Boots: 31 goals, 34 goals, 30 goals</li>
+                    <li>178 all-time Premier League goals</li>
+                    <li>Top scorer in 7 different club competitions</li>
+                </ul>
+            `,
+            assists: `
+                <h4 class="text-lg font-semibold mb-2">Assists Breakdown:</h4>
+                <ul class="list-disc list-inside pl-4">
+                    <li>7 Playmaker of the Season Awards</li>
+                    <li>5 UEFA Champions League Top Assister</li>
+                    <li>Record 37, 35, 30 and 33 assists in 4 consecutive premier league seasons</li>
+                    <li>219 all-time Premier League assists</li>
+                </ul>
+            `,
+            trophies: `
+                <h4 class="text-lg font-semibold mb-2">Trophy Breakdown:</h4>
+                <ul class="list-disc list-inside pl-4">
+                    <li>4 Premier League titles</li>
+                    <li>4 UEFA Champions Leagues</li>
+                    <li>3 UEFA Super Cups</li>
+                    <li>3 Community Shields</li>
+                    <li>3 Carabao Cups</li>
+                    <li>2 FIFA Club World Cups</li>
+                    <li>4 FA Cups</li>
+                </ul>
+            `,
+            ballondor: `
+                <h4 class="text-lg font-semibold mb-2">Ballons d'Or Details:</h4>
+                <ul class="list-disc list-inside pl-4">
+                    <li>2026 Ballon d'Or</li>
+                    <li>2027 Ballon d'Or</li>
+                    
+                    <li>2029 Ballon d'Or</li>
+                    <li>Recognized as the greatest player in Africa multiple times.</li>
+                </ul>
+            `,
+            nationalStats: `
+                <h4 class="text-lg font-semibold mb-2">National Team Statistics Details:</h4>
+                <ul class="list-disc list-inside pl-4">
+                    <li>Most assists for Kenya (59 assists)</li>
+                </ul>
+            `,
+            nationalHonors: `
+                <h4 class="text-lg font-semibold mb-2">National Team Major Honors Details:</h4>
+                <ul class="list-disc list-inside pl-4">
+                    <li>AFCON Titles: 2025, 2027, 2029</li>
+                    <li>Olympics: Gold Medal (Los Angeles 2028 Olympics)</li>
+                    <li>5 CAF African Footballer of the Year awards: 2025, 2026, 2027, 2028, 2029</li>
+                </ul>
+            `
+        };
+
+        // Function to open the modal with specific content
+        function openModal(contentKey) {
+            modalBody.innerHTML = detailsContent[contentKey];
+            modalOverlay.classList.add('open');
+        }
+
+        // Function to close the modal
+        function closeModal() {
+            modalOverlay.classList.remove('open');
+            // Optional: Clear content after closing if needed, to prevent flicker on next open
+            // setTimeout(() => { modalBody.innerHTML = ''; }, 300);
+        }
+
+        // Add event listeners to stat boxes to open modal
+        goalsBox.addEventListener('click', () => openModal('goals'));
+        assistsBox.addEventListener('click', () => openModal('assists'));
+        trophiesBox.addEventListener('click', () => openModal('trophies'));
+        ballondorBox.addEventListener('click', () => openModal('ballondor'));
+        nationalStatsBox.addEventListener('click', () => openModal('nationalStats'));
+        nationalHonorsBox.addEventListener('click', () => openModal('nationalHonors'));
+
+        // Add event listeners to close modal
+        modalCloseBtn.addEventListener('click', closeModal);
+        modalOverlay.addEventListener('click', (event) => {
+            // Close modal only if clicking directly on the overlay, not the content itself
+            if (event.target === modalOverlay) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
